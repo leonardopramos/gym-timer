@@ -81,6 +81,7 @@ export function RestTimer() {
   const tickRef = useRef<number | null>(null)
   const startAtRef = useRef<number | null>(null)
   const pausedElapsedRef = useRef<number>(0)
+  const notifiedRef = useRef(false)
 
   const formatted = useMemo(() => {
     const m = Math.floor(secondsLeft / 60)
@@ -98,6 +99,7 @@ export function RestTimer() {
     setSecondsLeft(seconds)
     pausedElapsedRef.current = 0
     setPushArmed(false)
+    notifiedRef.current = false
   }
 
   const stop = () => {
@@ -119,8 +121,13 @@ export function RestTimer() {
       startAtRef.current = null
       pausedElapsedRef.current = 0
       navigator.vibrate?.(250)
-      if (!pushArmed) {
-        void sendSilentNotification()
+      if (!notifiedRef.current) {
+        notifiedRef.current = true
+        const isVisible =
+          typeof document !== 'undefined' && document.visibilityState === 'visible'
+        if (!isVisible && !pushArmed) {
+          void sendSilentNotification()
+        }
       }
       setPushArmed(false)
       return
@@ -130,6 +137,7 @@ export function RestTimer() {
 
   const start = () => {
     if (mode === 'running') return
+    notifiedRef.current = false
     void subscribeAndSchedulePush(durationSeconds).then((ok) => {
       if (ok === false) {
         setPushStatus('Push não configurado; notificações só funcionam com app aberto.')
