@@ -19,7 +19,6 @@ async function sendSilentNotification() {
     body: 'Volte para a próxima série.',
     silent: true,
     tag: 'rest-timer-finished',
-    renotify: true,
   })
 }
 
