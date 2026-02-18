@@ -1,0 +1,142 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: #f5f6f8;
+  padding: 4px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  color: rgba(245, 246, 248, 0.64);
+  margin: 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.subtitle {
+  margin: 0;
+  color: rgba(245, 246, 248, 0.75);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
+}
+
+.time-display {
+  font-size: 48px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  margin: 2px 0 8px;
+}
+
+.picker-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-label {
+  font-size: 13px;
+  color: rgba(245, 246, 248, 0.82);
+}
+
+.ios-time {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f5f6f8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  font-size: 16px;
+  padding: 10px 12px;
+  appearance: textfield;
+}
+
+.ios-time::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.9);
+}
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+  gap: 6px;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f5f6f8;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.chip.active {
+  border-color: #7b8bff;
+  background: rgba(123, 139, 255, 0.18);
+}
+
+.chip:active {
+  transform: scale(0.98);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn {
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5f6f8;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #9f7bff, #7a9bff);
+  border: none;
+  color: #0f1115;
+  font-weight: 700;
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 480px) {
+  .time-display {
+    font-size: 42px;
+  }
+
+  h1 {
+    font-size: 23px;
+  }
+}
