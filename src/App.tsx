@@ -6,7 +6,7 @@ function App() {
     <main className="page">
       <header className="heading">
         <p className="eyebrow">Gym timer</p>
-        <h1>Descanso1 </h1>
+        <h1>Descanso12 </h1>
         <p className="subtitle">Defina o tempo de descanso e inicie o cronômetro.</p>
       </header>
 

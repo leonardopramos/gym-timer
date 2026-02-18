@@ -27,18 +27,21 @@ async function sendSilentNotification() {
 }
 
 async function subscribeAndSchedulePush(seconds: number) {
-  if (!canNotify) return
+  if (!canNotify) return false
   const granted = await ensureNotificationPermission()
-  if (!granted) return
+  if (!granted) return false
   const registration = await navigator.serviceWorker.ready
   const vapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY
-  if (!vapidKey) return
+  if (!vapidKey) {
+    console.warn('VITE_VAPID_PUBLIC_KEY ausente; push não será agendado')
+    return false
+  }
   const subscription = await registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: urlBase64ToUint8Array(vapidKey),
   })
 
-  await fetch('/api/push', {
+  const res = await fetch('/api/push', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -48,6 +51,12 @@ async function subscribeAndSchedulePush(seconds: number) {
       body: 'Volte para a próxima série.',
     }),
   })
+
+  if (!res.ok) {
+    console.warn('Falha ao agendar push', await res.text())
+    return false
+  }
+  return true
 }
 
 function urlBase64ToUint8Array(base64String: string) {
@@ -67,6 +76,7 @@ export function RestTimer() {
   const [durationSeconds, setDurationSeconds] = useState(60)
   const [secondsLeft, setSecondsLeft] = useState(durationSeconds)
   const [mode, setMode] = useState<Mode>('stopped')
+  const [pushStatus, setPushStatus] = useState<string | null>(null)
   const tickRef = useRef<number | null>(null)
   const startAtRef = useRef<number | null>(null)
   const pausedElapsedRef = useRef<number>(0)
@@ -115,7 +125,10 @@ export function RestTimer() {
 
   const start = () => {
     if (mode === 'running') return
-    void subscribeAndSchedulePush(durationSeconds)
+    void subscribeAndSchedulePush(durationSeconds).then((ok) => {
+      if (ok === false) setPushStatus('Push não configurado; notificações só funcionam com app aberto.')
+      else setPushStatus(null)
+    })
     startAtRef.current = Date.now()
     setMode('running')
     tickRef.current = requestAnimationFrame(tick)
@@ -199,6 +212,8 @@ export function RestTimer() {
           Zerar
         </button>
       </div>
+
+      {pushStatus && <p className="subtitle" style={{ marginTop: 6 }}>{pushStatus}</p>}
     </section>
   )
 }
