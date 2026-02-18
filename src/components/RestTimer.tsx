@@ -77,6 +77,7 @@ export function RestTimer() {
   const [secondsLeft, setSecondsLeft] = useState(durationSeconds)
   const [mode, setMode] = useState<Mode>('stopped')
   const [pushStatus, setPushStatus] = useState<string | null>(null)
+  const [pushArmed, setPushArmed] = useState(false)
   const tickRef = useRef<number | null>(null)
   const startAtRef = useRef<number | null>(null)
   const pausedElapsedRef = useRef<number>(0)
@@ -96,6 +97,7 @@ export function RestTimer() {
     setDurationSeconds(seconds)
     setSecondsLeft(seconds)
     pausedElapsedRef.current = 0
+    setPushArmed(false)
   }
 
   const stop = () => {
@@ -117,7 +119,10 @@ export function RestTimer() {
       startAtRef.current = null
       pausedElapsedRef.current = 0
       navigator.vibrate?.(250)
-      void sendSilentNotification()
+      if (!pushArmed) {
+        void sendSilentNotification()
+      }
+      setPushArmed(false)
       return
     }
     tickRef.current = requestAnimationFrame(tick)
@@ -126,8 +131,13 @@ export function RestTimer() {
   const start = () => {
     if (mode === 'running') return
     void subscribeAndSchedulePush(durationSeconds).then((ok) => {
-      if (ok === false) setPushStatus('Push não configurado; notificações só funcionam com app aberto.')
-      else setPushStatus(null)
+      if (ok === false) {
+        setPushStatus('Push não configurado; notificações só funcionam com app aberto.')
+        setPushArmed(false)
+      } else {
+        setPushStatus(null)
+        setPushArmed(true)
+      }
     })
     startAtRef.current = Date.now()
     setMode('running')
