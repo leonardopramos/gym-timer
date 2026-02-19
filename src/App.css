@@ -72,6 +72,135 @@ h1 {
   font-weight: 700;
 }
 
+.training-runner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.runner-header {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.runner-actions .btn {
+  min-width: 120px;
+}
+
+.exercise-view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.progress-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f6f8;
+  font-size: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.progress-badge.done {
+  border-color: #7b8bff;
+  background: rgba(123, 139, 255, 0.16);
+}
+
+.progress-badge.secondary {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.exercise-title {
+  margin: 4px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.runner-hints {
+  color: rgba(245, 246, 248, 0.7);
+  font-size: 14px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.runner-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.runner-left .chips.vertical {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.runner-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.runner-right-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.runner-actions .btn {
+  min-width: 140px;
+}
+
+.badge-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exercise-box {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.exercise-box-top {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chips.vertical .chip {
+  justify-content: flex-start;
+}
+
+@media (max-width: 480px) {
+  .runner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .runner-right-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .runner-actions .btn {
+    width: 100%;
+  }
+}
+
 .time-display {
   font-size: 48px;
   font-variant-numeric: tabular-nums;

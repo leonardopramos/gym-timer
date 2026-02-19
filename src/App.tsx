@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { RestTimer } from './components/RestTimer'
+import { TrainingRunner } from './components/TrainingRunner'
 
 type Mode = 'menu' | 'musculacao' | 'luta'
 
@@ -40,7 +41,12 @@ function App() {
         </section>
       )}
 
-      {mode === 'musculacao' && <RestTimer />}
+      {mode === 'musculacao' && (
+        <>
+          <RestTimer />
+          <TrainingRunner />
+        </>
+      )}
 
       {mode === 'luta' && (
         <section className="card placeholder">
