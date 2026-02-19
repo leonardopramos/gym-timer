@@ -106,10 +106,6 @@ export function TrainingRunner() {
     setSetIdx(0)
   }
 
-  const progressText = selectedPlan
-    ? `Exercício ${finished ? totalExercises : exerciseIdx + 1} de ${totalExercises}`
-    : 'Escolha um treino'
-
   const setProgress =
     currentExercise && !finished
       ? `Série ${setIdx + 1} de ${currentExercise.sets}`
