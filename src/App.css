@@ -39,6 +39,39 @@ h1 {
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
 }
 
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.mode-tile {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  color: #f5f6f8;
+  padding: 18px 14px;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.mode-tile:active {
+  transform: translateY(1px);
+}
+
+.emoji {
+  font-size: 28px;
+}
+
+.tile-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
 .time-display {
   font-size: 48px;
   font-variant-numeric: tabular-nums;
@@ -129,6 +162,10 @@ h1 {
 
 .btn:active {
   transform: translateY(1px);
+}
+
+.sticky-actions {
+  margin-top: 12px;
 }
 
 @media (max-width: 480px) {

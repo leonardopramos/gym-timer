@@ -24,13 +24,16 @@ body {
     #0f1115;
   display: flex;
   justify-content: center;
-  padding: 12px;
+  padding: calc(12px + env(safe-area-inset-top, 0px))
+    calc(12px + env(safe-area-inset-right, 0px))
+    calc(12px + env(safe-area-inset-bottom, 0px))
+    calc(12px + env(safe-area-inset-left, 0px));
   overflow-x: hidden;
 }
 
 #root {
   width: 100%;
-  max-width: 380px;
+  max-width: 400px;
 }
 
 a {
